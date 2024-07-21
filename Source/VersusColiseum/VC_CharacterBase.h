@@ -5,23 +5,19 @@
 #include "VC_IDamageable.h"
 #include "VC_CharacterBase.generated.h"
 
-//class ASF_EquipmentBase;
-//class ASF_WeaponBase;
-//class ASF_Shield;
-
 UENUM(BlueprintType)
 enum class EVC_CharacterState : uint8
 {
-	None = 0			UMETA(DisplayName = "‚È‚µ"),
-	Normal				UMETA(DisplayName = "’Êí"),
-	BeginAttack			UMETA(DisplayName = "UŒ‚ŠJn"),
-	ShortRangeAttack	UMETA(DisplayName = "‹ß‹——£UŒ‚"),
-	LongRangeAttack		UMETA(DisplayName = "‰“‹——£UŒ‚"),
-	EndAttack			UMETA(DisplayName = "UŒ‚I—¹"),
-	Avoid				UMETA(DisplayName = "‰ñ”ğ’†"),
-	BeginDead			UMETA(DisplayName = "€–SŠJn"),
-	Dead				UMETA(DisplayName = "€–S’†"),
-	EndDead				UMETA(DisplayName = "€–SI—¹"),
+	None = 0 UMETA(DisplayName = "‚È‚µ"),
+	Normal UMETA(DisplayName = "’Êí"),
+	BeginAttack UMETA(DisplayName = "UŒ‚ŠJn"),
+	WeaponAttack UMETA(DisplayName = "‹ßÚUŒ‚"),
+	ShieldAttack UMETA(DisplayName = "‚UŒ‚"),
+	EndAttack UMETA(DisplayName = "UŒ‚I—¹"),
+	Avoid UMETA(DisplayName = "‰ñ”ğ"),
+	BeginDead UMETA(DisplayName = "€–SŠJn"),
+	Dead UMETA(DisplayName = "€–S’†"),
+	EndDead UMETA(DisplayName = "€–SI—¹"),
 };
 
 // ƒLƒƒƒ‰ƒNƒ^[‹¤’Ê‚Ìî•ñ‚ğ‚Ü‚Æ‚ß‚½\‘¢‘Ì
@@ -40,38 +36,95 @@ public:
 
 	// ‹ßÚUŒ‚‰Â”\‹——£
 	UPROPERTY(EditAnywhere, BlueprintReadOnly)
-	float AttackableDistance_ShortRange;
-	// ‰“‹——£UŒ‚‰Â”\‹——£
-	UPROPERTY(EditAnywhere, BlueprintReadOnly)
-	float AttackableDistance_LongRange;
+	float AttackableDistance;
 
 public:
 	FVC_CharacterInfo()
 		: MaxHP(100.f)
-		, MoveSpeed(600.f)
-		, AttackableDistance_ShortRange(500.f)
-		, AttackableDistance_LongRange(2000.f)
-	{}
+		  , MoveSpeed(600.f)
+		  , AttackableDistance(500.f)
+	{
+	}
 };
 
 UCLASS()
-class VERSUSCOLISEUM_API AVC_CharacterBase : public ACharacter /*public UVC_IDamageable*/
+class VERSUSCOLISEUM_API AVC_CharacterBase : public ACharacter, public IVC_IDamageable
 {
 	GENERATED_BODY()
 
 public:
-	// Sets default values for this character's properties
 	AVC_CharacterBase();
 
 protected:
-	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
 public:
-	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
-	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
+private:
+	// ƒLƒƒƒ‰ƒNƒ^[‚Ìó‘Ô
+	UPROPERTY(VisibleAnywhere, Category = "Visible | State")
+	EVC_CharacterState CharacterState;
+	// ƒLƒƒƒ‰ƒNƒ^[‚Ìƒpƒ‰ƒ[ƒ^î•ñ
+	UPROPERTY(EditAnywhere, Category = "Edit | Param")
+	FVC_CharacterInfo CharacterParam;
+
+	// HP
+	UPROPERTY()
+	float CurrentHP;
+
+public:
+	UFUNCTION(BlueprintCallable, Category = "CharacterBase")
+	void SetCharacterState(const EVC_CharacterState InCharacterState) { CharacterState = InCharacterState; }
+
+	UFUNCTION(BlueprintCallable, Category = "CharacterBase")
+	EVC_CharacterState GetCharacterState() { return CharacterState; }
+
+	// €–S‚µ‚Ä‚¢‚é‚©
+	UFUNCTION(BlueprintCallable, Category = "CharacterBase")
+	bool IsDead() const
+	{
+		return CharacterState == EVC_CharacterState::BeginDead ||
+		       CharacterState == EVC_CharacterState::Dead ||
+		       CharacterState == EVC_CharacterState::EndDead
+			       ? true
+			       : false;
+	}
+
+	// ‹ß‹——£UŒ‚‚ğ‚µ‚Ä‚¢‚é‚©
+	UFUNCTION(BlueprintCallable, Category = "CharacterBase")
+	bool IsAttack_Weapon() const { return CharacterState == EVC_CharacterState::WeaponAttack ? true : false; }
+
+	// ‚UŒ‚‚ğ‚µ‚Ä‚¢‚é‚©
+	UFUNCTION(BlueprintCallable, Category = "CharacterBase")
+	bool IsAttack_Shield() const { return CharacterState == EVC_CharacterState::ShieldAttack ? true : false; }
+
+	// UŒ‚‰Â”\‹——£‚ğİ’è
+	UFUNCTION(BlueprintCallable, Category = "CharacterBase")
+	void SetAttackableDistance(const float InValue) { CharacterParam.AttackableDistance = InValue; }
+
+	// UŒ‚‰Â”\‹——£‚ğæ“¾
+	UFUNCTION(BlueprintCallable, Category = "CharacterBase")
+	float GetAttackableDistance() const { return CharacterParam.AttackableDistance; }
+
+	UFUNCTION(BlueprintCallable, Category = "CharacterBase")
+	void SetCurretnHP(const float InHP) { CurrentHP = InHP; }
+
+	UFUNCTION(BlueprintCallable, Category = "CharacterBase")
+	float GetCurrentHP() const { return CurrentHP; }
+
+private:
+	virtual void UpdateOnNormal(const float InDeltaTime) {}
+	virtual void OnBeginAttack() {}
+	virtual void UpdateOnShortRangeAttack(const float InDeltaTime) {}
+	virtual void UpdateOnLongRangeAttack(const float InDeltaTime) {}
+	virtual void OnEndAttack() {}
+	virtual void OnBeginDead() {}
+	virtual void UpdateOnDead(const float InDeltaTime) {}
+	virtual void OnEndDead() {}
+
+	// IVC_Damageableable ‚ğ‰î‚µ‚ÄŒp³‚³‚ê‚Ü‚µ‚½
+	virtual void GetDamage(int32 damage) override{};
 };

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="Encoding" addBOMForNewFiles="with BOM under Windows, with no BOM otherwise">
+    <file url="file://$PROJECT_DIR$/Source/VersusColiseum/VC_AttackInput.cpp" charset="Shift_JIS" />
+    <file url="file://$PROJECT_DIR$/Source/VersusColiseum/VC_AttackInput.h" charset="Shift_JIS" />
+    <file url="file://$PROJECT_DIR$/Source/VersusColiseum/VC_CharacterBase.h" charset="Shift_JIS" />
+    <file url="file://$PROJECT_DIR$/Source/VersusColiseum/VC_GameMode.cpp" charset="Shift_JIS" />
+    <file url="file://$PROJECT_DIR$/Source/VersusColiseum/VC_GameMode.h" charset="Shift_JIS" />
+    <file url="file://$PROJECT_DIR$/Source/VersusColiseum/VC_IDamageable.cpp" charset="Shift_JIS" />
+    <file url="file://$PROJECT_DIR$/Source/VersusColiseum/VC_IDamageable.h" charset="Shift_JIS" />
+    <file url="file://$PROJECT_DIR$/Source/VersusColiseum/VC_MainCamera.cpp" charset="Shift_JIS" />
+    <file url="file://$PROJECT_DIR$/Source/VersusColiseum/VC_MainCamera.h" charset="Shift_JIS" />
+    <file url="file://$PROJECT_DIR$/Source/VersusColiseum/VC_MovementInput.cpp" charset="Shift_JIS" />
+    <file url="file://$PROJECT_DIR$/Source/VersusColiseum/VC_MovementInput.h" charset="Shift_JIS" />
+    <file url="file://$PROJECT_DIR$/Source/VersusColiseum/VC_Player.cpp" charset="Shift_JIS" />
+    <file url="file://$PROJECT_DIR$/Source/VersusColiseum/VC_Player.h" charset="Shift_JIS" />
+    <file url="file://$PROJECT_DIR$/Source/VersusColiseum/VC_PlayerController.cpp" charset="Shift_JIS" />
+    <file url="file://$PROJECT_DIR$/Source/VersusColiseum/VC_PlayerController.h" charset="Shift_JIS" />
+  </component>
+</project>
