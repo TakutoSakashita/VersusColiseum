@@ -32,6 +32,14 @@ private:
 	// 横方向移動処理
 	void MoveRight(const float InValue);
 
+	// ダッシュ 回避処理
+	void StartDashAvoid();
+	void EndDashAvoid();
+
+	// ジャンプ処理
+	void StartJump();
+	void EndJump();
+	
 protected:
 	AVC_Player* PlayerCharacter;
 	AVC_MainCamera* MainCamera;

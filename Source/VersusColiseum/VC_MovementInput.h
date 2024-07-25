@@ -25,6 +25,14 @@ public:
 	void MoveForward(const float InValue);
 	void MoveRight(const float InValue);
 
+	// ダッシュ 回避処理
+	void StartDashAvoid();
+	void EndDashAvoid();
+
+	// ジャンプ処理
+	void StartJump();
+	void EndJump();
+	
 protected:
 	// 振り向き速度
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)

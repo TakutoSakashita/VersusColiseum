@@ -116,15 +116,40 @@ public:
 	float GetCurrentHP() const { return CurrentHP; }
 
 private:
-	virtual void UpdateOnNormal(const float InDeltaTime) {}
-	virtual void OnBeginAttack() {}
-	virtual void UpdateOnShortRangeAttack(const float InDeltaTime) {}
-	virtual void UpdateOnLongRangeAttack(const float InDeltaTime) {}
-	virtual void OnEndAttack() {}
-	virtual void OnBeginDead() {}
-	virtual void UpdateOnDead(const float InDeltaTime) {}
-	virtual void OnEndDead() {}
+	virtual void UpdateOnNormal(const float InDeltaTime)
+	{
+	}
+
+	virtual void OnBeginAttack()
+	{
+	}
+
+	virtual void UpdateOnShortRangeAttack(const float InDeltaTime)
+	{
+	}
+
+	virtual void UpdateOnLongRangeAttack(const float InDeltaTime)
+	{
+	}
+
+	virtual void OnEndAttack()
+	{
+	}
+
+	virtual void OnBeginDead()
+	{
+	}
+
+	virtual void UpdateOnDead(const float InDeltaTime)
+	{
+	}
+
+	virtual void OnEndDead()
+	{
+	}
 
 	// IVC_Damageableable ÇâÓÇµÇƒåpè≥Ç≥ÇÍÇ‹ÇµÇΩ
-	virtual void GetDamage(int32 damage) override{};
+	virtual void GetDamage(int32 damage) override
+	{
+	};
 };

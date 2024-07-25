@@ -14,6 +14,8 @@ void AVC_PlayerController::BeginPlay()
 	Super::BeginPlay();
 }
 
+
+
 void AVC_PlayerController::SetupInputComponent()
 {
 	Super::SetupInputComponent();
@@ -23,9 +25,11 @@ void AVC_PlayerController::SetupInputComponent()
 	InputComponent->BindAxis("MoveRight", this, &AVC_PlayerController::MoveRight);
 	InputComponent->BindAxis("Turn", this, &AVC_PlayerController::Turn);
 	InputComponent->BindAxis("LookUp", this, &AVC_PlayerController::LookUp);
-	// InputComponent->BindAction("Avoid", IE_Pressed, this, &AVC_PlayerController::StartMoveDash);
-	// InputComponent->BindAction("StartMoveJump", IE_Pressed, this, &AVC_PlayerController::StartMoveJump);
-	// InputComponent->BindAction("EndMoveJump", IE_Pressed, this, &AVC_PlayerController::EndMoveJump);
+	InputComponent->BindAction("StartDashAvoid", IE_Pressed, this, &AVC_PlayerController::StartDashAvoid);
+	InputComponent->BindAction("EndDashAvoid", IE_Released, this, &AVC_PlayerController::EndDashAvoid);
+	InputComponent->BindAction("StartJump", IE_Pressed, this, &AVC_PlayerController::StartJump);
+	InputComponent->BindAction("EndJump", IE_Released, this, &AVC_PlayerController::EndJump);
+
 	//
 	// //attack process
 	// InputComponent->BindAction("BeginWeaponAttack", IE_Pressed, this, &AVC_PlayerController::BeginShortRangeAttack);
@@ -62,5 +66,28 @@ void AVC_PlayerController::MoveRight(const float InValue)
 	if (!PlayerCharacter) return;
 	PlayerCharacter->MoveRight(InValue);
 	//UE_LOG(LogTemp,Warning,TEXT("MoveRight"));
+}
 
+void AVC_PlayerController::StartDashAvoid()
+{
+	if (!PlayerCharacter) return;
+	PlayerCharacter->StartDashAvoid();
+}
+
+void AVC_PlayerController::EndDashAvoid()
+{
+	if (!PlayerCharacter) return;
+	PlayerCharacter->EndDashAvoid();
+}
+
+void AVC_PlayerController::StartJump()
+{
+	if (!PlayerCharacter) return;
+	PlayerCharacter->StartJump();
+}
+
+void AVC_PlayerController::EndJump()
+{
+	if (!PlayerCharacter) return;
+	PlayerCharacter->EndJump();
 }

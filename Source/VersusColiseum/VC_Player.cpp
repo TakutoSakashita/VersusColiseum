@@ -41,15 +41,37 @@ void AVC_Player::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent
 void AVC_Player::MoveForward(const float InValue)
 {
 	if (!IsValid(MoveInputComponent)) return;
-
 	MoveInputComponent->MoveForward(InValue);
 }
 
 void AVC_Player::MoveRight(const float InValue)
 {
 	if (!IsValid(MoveInputComponent)) return;
-
 	MoveInputComponent->MoveRight(InValue);
+}
+
+void AVC_Player::StartDashAvoid()
+{
+	if (!IsValid(MoveInputComponent)) return;
+	MoveInputComponent->StartDashAvoid();
+}
+
+void AVC_Player::EndDashAvoid()
+{
+	if (!IsValid(MoveInputComponent)) return;
+	MoveInputComponent->EndDashAvoid();
+}
+
+void AVC_Player::StartJump()
+{
+	if (!IsValid(MoveInputComponent)) return;
+	MoveInputComponent->StartJump();
+}
+
+void AVC_Player::EndJump()
+{
+	if (!IsValid(MoveInputComponent)) return;
+	MoveInputComponent->EndJump();
 }
 
 void AVC_Player::GetDamage(int32 damage)

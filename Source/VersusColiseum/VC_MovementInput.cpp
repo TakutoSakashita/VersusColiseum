@@ -3,6 +3,7 @@
 #include "VC_MainCamera.h"
 #include "VC_GameMode.h"
 #include "Components/InputComponent.h"
+#include "GameFramework/CharacterMovementComponent.h"
 #include "GameFramework/Pawn.h"
 #include "Kismet/GameplayStatics.h"
 
@@ -43,6 +44,36 @@ void UVC_MovementInput::MoveRight(const float InValue)
 
 	// ‰ñ“]
 	CharacterRotate();
+}
+
+void UVC_MovementInput::StartDashAvoid()
+{
+	if (!IsValid(GetMainCamera())) return;
+	if (!IsValid(GetPlayerCharacter())) return;
+
+	GetPlayerCharacter()->GetCharacterMovement()->MaxWalkSpeed = 1200.f;
+	// GetPlayerCharacter()->GetCharacterMovement()->MaxAcceleration = 4096.f;
+}
+
+void UVC_MovementInput::EndDashAvoid()
+{
+	if (!IsValid(GetMainCamera())) return;
+	if (!IsValid(GetPlayerCharacter())) return;
+
+	GetPlayerCharacter()->GetCharacterMovement()->MaxWalkSpeed = 600.f;
+	GetPlayerCharacter()->GetCharacterMovement()->MaxAcceleration = 2048.f;
+}
+
+void UVC_MovementInput::StartJump()
+{
+	if (!IsValid(GetMainCamera())) return;
+	if (!IsValid(GetPlayerCharacter())) return;
+}
+
+void UVC_MovementInput::EndJump()
+{
+	if (!IsValid(GetMainCamera())) return;
+	if (!IsValid(GetPlayerCharacter())) return;
 }
 
 void UVC_MovementInput::CharacterRotate() const
