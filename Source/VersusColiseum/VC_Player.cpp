@@ -4,6 +4,7 @@
 #include "VC_AttackInput.h"
 #include "VC_PlayerController.h"
 #include "AbilitySystemComponent.h"
+#include "VC_Weapon.h"
 #include "Kismet/GameplayStatics.h"
 
 AVC_Player::AVC_Player()
@@ -44,6 +45,9 @@ void AVC_Player::BeginPlay()
 		}
 		AbilitySystem->InitAbilityActorInfo(this, this);
 	}
+
+	AVC_Weapon* Weapon = Cast<AVC_Weapon>(UGameplayStatics::GetActorOfClass(GetWorld(),AVC_Weapon::StaticClass()));
+	EquipWeapon(Weapon,"hand_rSocket");
 }
 
 void AVC_Player::Tick(float DeltaTime)

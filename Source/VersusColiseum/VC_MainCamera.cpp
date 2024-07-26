@@ -67,7 +67,6 @@ void AVC_MainCamera::Tick(float DeltaTime)
 	
 	UpdateOnNormal(DeltaTime);
 	UpdateRotation(DeltaTime);
-
 }
 void AVC_MainCamera::UpdateRotation(const float DeltaTime)
 {

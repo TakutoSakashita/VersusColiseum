@@ -26,6 +26,9 @@ private:
 	void LookUp(const float InValue);
 	// 視点X軸回転処理
 	void Turn(const float InValue);
+	// ロックオン
+	void LockOn();
+
 
 	// 前方向移動処理
 	void MoveForward(const float InValue);

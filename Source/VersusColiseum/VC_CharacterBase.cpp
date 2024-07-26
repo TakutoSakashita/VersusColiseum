@@ -1,4 +1,5 @@
 #include "VC_CharacterBase.h"
+#include "VC_WeaponBase.h"
 
 AVC_CharacterBase::AVC_CharacterBase()
 	: CharacterState(EVC_CharacterState::None)
@@ -27,21 +28,21 @@ void AVC_CharacterBase::SetupPlayerInputComponent(UInputComponent* PlayerInputCo
 	Super::SetupPlayerInputComponent(PlayerInputComponent);
 }
 
-// /// ToDo
-// /// @brief 武器を装備する
-// /// @param InWeapon	   キャラクターに装備させるシールド
-// /// @param InSoketName メッシュにアタッチさせるソケットの名前
-// void AVC_CharacterBase::EquipWeapon(ASF_WeaponBase* const InWeapon, const FName& InSoketName)
-// {
-// 	if (!IsValid(InWeapon)) return;
-//
-// 	WeaponActor = InWeapon;
-//
-// 	// 銃アクターをプレイヤーメッシュのソケットにアタッチする
-// 	FAttachmentTransformRules AttachTransform = { EAttachmentRule::SnapToTarget, EAttachmentRule::SnapToTarget, EAttachmentRule::KeepWorld, true };
-// 	WeaponActor->AttachToComponent(GetMesh(), AttachTransform, InSoketName);
-// }
-//
+/// ToDo
+/// @brief 武器を装備する
+/// @param InWeapon	   キャラクターに装備させる武器
+/// @param InSoketName メッシュにアタッチさせるソケットの名前
+void AVC_CharacterBase::EquipWeapon(AVC_WeaponBase* const InWeapon, const FName& InSoketName)
+{
+	if (!IsValid(InWeapon)) return;
+
+	WeaponActor = InWeapon;
+
+	// アクターをプレイヤーメッシュのソケットにアタッチする
+	FAttachmentTransformRules AttachTransform = { EAttachmentRule::SnapToTarget, EAttachmentRule::SnapToTarget, EAttachmentRule::KeepWorld, true };
+	WeaponActor->AttachToComponent(GetMesh(), AttachTransform, InSoketName);
+}
+
 // /// ToDo
 // /// @brief シールドを装備する
 // /// @param InEquipment キャラクターに装備させるシールド
@@ -52,7 +53,7 @@ void AVC_CharacterBase::SetupPlayerInputComponent(UInputComponent* PlayerInputCo
 //
 // 	ShieldActor = InShield;
 //
-// 	// 銃アクターをプレイヤーメッシュのソケットにアタッチする
+// 	// アクターをプレイヤーメッシュのソケットにアタッチする
 // 	FAttachmentTransformRules AttachTransform = { EAttachmentRule::SnapToTarget, EAttachmentRule::SnapToTarget, EAttachmentRule::KeepWorld, true };
 // 	ShieldActor->AttachToComponent(GetMesh(), AttachTransform, InSoketName);
 // }

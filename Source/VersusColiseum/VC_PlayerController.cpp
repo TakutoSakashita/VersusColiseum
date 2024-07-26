@@ -25,10 +25,12 @@ void AVC_PlayerController::SetupInputComponent()
 	InputComponent->BindAxis("MoveRight", this, &AVC_PlayerController::MoveRight);
 	InputComponent->BindAxis("Turn", this, &AVC_PlayerController::Turn);
 	InputComponent->BindAxis("LookUp", this, &AVC_PlayerController::LookUp);
+	
 	InputComponent->BindAction("StartDashAvoid", IE_Pressed, this, &AVC_PlayerController::StartDashAvoid);
 	InputComponent->BindAction("EndDashAvoid", IE_Released, this, &AVC_PlayerController::EndDashAvoid);
 	InputComponent->BindAction("StartJump", IE_Pressed, this, &AVC_PlayerController::StartJump);
 	InputComponent->BindAction("EndJump", IE_Released, this, &AVC_PlayerController::EndJump);
+	InputComponent->BindAction("LockOn", IE_Released, this, &AVC_PlayerController::LockOn);
 
 	//
 	// //attack process
@@ -52,6 +54,12 @@ void AVC_PlayerController::Turn(const float InValue)
 	if (!MainCamera) return;
 	MainCamera->AddYawRotation(InValue);
 	//UE_LOG(LogTemp,Warning,TEXT("Turn"));
+}
+
+void AVC_PlayerController::LockOn()
+{
+	if (!MainCamera) return;
+	//MainCamera->LockOn();
 }
 
 void AVC_PlayerController::MoveForward(const float InValue)

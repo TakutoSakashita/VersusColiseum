@@ -3,7 +3,10 @@
 #include "CoreMinimal.h"
 #include "GameFramework/Character.h"
 #include "VC_IDamageable.h"
+#include "VC_WeaponBase.h"
 #include "VC_CharacterBase.generated.h"
+
+class AVC_WeaponBase;
 
 UENUM(BlueprintType)
 enum class EVC_CharacterState : uint8
@@ -62,6 +65,8 @@ public:
 	virtual void Tick(float DeltaTime) override;
 
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
+	
+	void EquipWeapon(AVC_WeaponBase* InWeapon, const FName& InSoketName);
 
 private:
 	// キャラクターの状態
@@ -75,12 +80,24 @@ private:
 	UPROPERTY()
 	float CurrentHP;
 
+
+private:
+	// 武器
+	UPROPERTY(VisibleAnywhere, Category = "Visible | Equipment")
+	AVC_WeaponBase* WeaponActor;
+	// 盾
+	// UPROPERTY(VisibleAnywhere, Category = "Visible | Equipment")
+	// ASF_Shield* ShieldActor;
+	
 public:
 	UFUNCTION(BlueprintCallable, Category = "CharacterBase")
 	void SetCharacterState(const EVC_CharacterState InCharacterState) { CharacterState = InCharacterState; }
 
 	UFUNCTION(BlueprintCallable, Category = "CharacterBase")
 	EVC_CharacterState GetCharacterState() { return CharacterState; }
+
+	AVC_WeaponBase* GetWeaponActor() const { return WeaponActor; }
+	//ASF_Shield* GetShieldActor() const { return ShieldActor; }
 
 	// 死亡しているか
 	UFUNCTION(BlueprintCallable, Category = "CharacterBase")
