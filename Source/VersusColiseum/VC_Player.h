@@ -2,10 +2,13 @@
 
 #include "CoreMinimal.h"
 #include "VC_CharacterBase.h"
+#include "Abilities/GameplayAbility.h"
+#include "AbilitySystemInterface.h"
 #include "VC_Player.generated.h"
 
 class UVC_MovementInput;
 class UVC_AttackInput;
+class UAbilitySystemComponent;
 
 UCLASS()
 class VERSUSCOLISEUM_API AVC_Player : public AVC_CharacterBase
@@ -19,6 +22,14 @@ public:
 
 protected:
 	virtual void BeginPlay() override;
+
+	// AbilitySystemを使用するうえで必須のコンポーネント
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, meta = (AllowPrivateAccess = "true"))
+	UAbilitySystemComponent* AbilitySystem;
+
+	// このキャラクターが持つアビリティの配列
+	UPROPERTY(EditDefaultsOnly, Category = "Abilities")
+	TArray<TSubclassOf<UGameplayAbility>> AbilityList;
 	
 public:
 	void MoveForward(const float InValue);
@@ -31,6 +42,11 @@ public:
 	// ジャンプ処理
 	void StartJump();
 	void EndJump();
+
+	// 新しいControllerが与えられたときにAbility Systemのアクタをリフレッシュする
+	virtual void PossessedBy(AController* NewController) override;
+	// Ability System Componentのゲッター
+	UAbilitySystemComponent* GetAbilitySystemComponent() const { return AbilitySystem; }
 
 	////////////////////// BlueprintImplementableEvent
 	UFUNCTION(BlueprintImplementableEvent)

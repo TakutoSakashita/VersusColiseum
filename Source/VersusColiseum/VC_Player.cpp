@@ -3,6 +3,7 @@
 #include "VC_MovementInput.h"
 #include "VC_AttackInput.h"
 #include "VC_PlayerController.h"
+#include "AbilitySystemComponent.h"
 #include "Kismet/GameplayStatics.h"
 
 AVC_Player::AVC_Player()
@@ -10,6 +11,9 @@ AVC_Player::AVC_Player()
 	// コンポーネント生成
 	MoveInputComponent = CreateDefaultSubobject<UVC_MovementInput>(TEXT("MoveInputComponent"));
 	AttackInputComponent = CreateDefaultSubobject<UVC_AttackInput>(TEXT("AttackInputComponent"));
+
+	// GAS
+	AbilitySystem = CreateDefaultSubobject<UAbilitySystemComponent>(TEXT("AbilitySystem"));
 }
 
 void AVC_Player::BeginPlay()
@@ -26,6 +30,20 @@ void AVC_Player::BeginPlay()
 		Cast<AVC_PlayerController>(UGameplayStatics::GetPlayerController(GetWorld(), 0))) {
 		CustomController->SetPlayerCharacter(this);
 		}
+
+	// GAS
+	if (IsValid(AbilitySystem))
+	{
+		int32 InputID(0);
+		if (HasAuthority() && AbilityList.Num() > 0)
+		{
+			for (auto Ability : AbilityList)
+			{
+				AbilitySystem->GiveAbility(FGameplayAbilitySpec(Ability.GetDefaultObject(), 1, InputID++));
+			}
+		}
+		AbilitySystem->InitAbilityActorInfo(this, this);
+	}
 }
 
 void AVC_Player::Tick(float DeltaTime)
@@ -72,6 +90,13 @@ void AVC_Player::EndJump()
 {
 	if (!IsValid(MoveInputComponent)) return;
 	MoveInputComponent->EndJump();
+}
+
+void AVC_Player::PossessedBy(AController* NewController)
+{
+	Super::PossessedBy(NewController);
+
+	AbilitySystem->RefreshAbilityActorInfo();
 }
 
 void AVC_Player::GetDamage(int32 damage)
