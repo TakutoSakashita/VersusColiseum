@@ -32,10 +32,10 @@ void AVC_PlayerController::SetupInputComponent()
 	InputComponent->BindAction("EndJump", IE_Released, this, &AVC_PlayerController::EndJump);
 	InputComponent->BindAction("LockOn", IE_Released, this, &AVC_PlayerController::LockOn);
 
-	//
-	// //attack process
-	// InputComponent->BindAction("BeginWeaponAttack", IE_Pressed, this, &AVC_PlayerController::BeginShortRangeAttack);
-	// InputComponent->BindAction("EndShortRangeAttack", IE_Released, this, &AVC_PlayerController::EndShortRangeAttack);
+	
+	//attack process
+	InputComponent->BindAction("BeginWeaponAttack", IE_Pressed, this, &AVC_PlayerController::BeginWeaponAttack);
+	InputComponent->BindAction("EndWeaponAttack", IE_Released, this, &AVC_PlayerController::EndWeaponAttack);
 	// InputComponent->BindAction("BeginShieldAttack", IE_Pressed, this, &AVC_PlayerController::HomingAttack);
 	// InputComponent->BindAction("EndShieldAttack", IE_Pressed, this, &AVC_PlayerController::LaserAttack);
 	//
@@ -98,4 +98,16 @@ void AVC_PlayerController::EndJump()
 {
 	if (!PlayerCharacter) return;
 	PlayerCharacter->EndJump();
+}
+
+void AVC_PlayerController::BeginWeaponAttack()
+{
+	if (!PlayerCharacter) return;
+	PlayerCharacter->BeginWeaponAttack();
+}
+
+void AVC_PlayerController::EndWeaponAttack()
+{
+	if (!PlayerCharacter) return;
+//	PlayerCharacter->EndWeaponAttack();
 }

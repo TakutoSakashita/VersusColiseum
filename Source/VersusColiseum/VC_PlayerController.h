@@ -43,6 +43,10 @@ private:
 	void StartJump();
 	void EndJump();
 	
+	// UŒ‚ˆ—
+	void BeginWeaponAttack();
+	void EndWeaponAttack();
+	
 protected:
 	AVC_Player* PlayerCharacter;
 	AVC_MainCamera* MainCamera;

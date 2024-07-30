@@ -43,6 +43,9 @@ public:
 	void StartJump();
 	void EndJump();
 
+	// 攻撃処理
+	void BeginWeaponAttack();
+	
 	// 新しいControllerが与えられたときにAbility Systemのアクタをリフレッシュする
 	virtual void PossessedBy(AController* NewController) override;
 	// Ability System Componentのゲッター

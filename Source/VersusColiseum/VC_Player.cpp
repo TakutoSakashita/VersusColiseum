@@ -20,6 +20,7 @@ AVC_Player::AVC_Player()
 void AVC_Player::BeginPlay()
 {
 	Super::BeginPlay();
+	
 	SetCharacterState(EVC_CharacterState::Normal);
 	if (AVC_GameMode* VC_GameMode =
 		Cast<AVC_GameMode>(UGameplayStatics::GetGameMode(GetWorld())))
@@ -96,6 +97,12 @@ void AVC_Player::EndJump()
 	MoveInputComponent->EndJump();
 }
 
+void AVC_Player::BeginWeaponAttack()
+{
+	if (!IsValid(AttackInputComponent)) return;
+	AttackInputComponent->BeginWeaponAttack();
+}
+
 void AVC_Player::PossessedBy(AController* NewController)
 {
 	Super::PossessedBy(NewController);
@@ -105,4 +112,5 @@ void AVC_Player::PossessedBy(AController* NewController)
 
 void AVC_Player::GetDamage(int32 damage)
 {
+	
 }

@@ -36,9 +36,9 @@ public:
 	void SetPlayerCharacter(AVC_Player* const InPlayerCharacter) { PlayerCharacter = InPlayerCharacter; }
 	void SetMainCamera(AVC_MainCamera* const InMainCamera) { MainCamera = InMainCamera; }
 
-	UFUNCTION(BlueprintCallable, Category = "A_GameMode")
+	UFUNCTION(BlueprintCallable, Category = "VC_GameMode")
 	AVC_Player* GetPlayerCharacter() const { return PlayerCharacter; }
-	UFUNCTION(BlueprintCallable, Category = "A_GameMode")
+	UFUNCTION(BlueprintCallable, Category = "VC_GameMode")
 	AVC_MainCamera* GetMainCamera() const { return MainCamera; }
 
 private:
